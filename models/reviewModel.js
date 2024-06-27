@@ -2,15 +2,23 @@ const mongoose = require('mongoose');
 
 // create schema
 const reviewSchema = new mongoose.Schema({
-    title: String,
-    description: String,
+    title: {
+      type: String,
+      required: true
+    },
+    description:{
+      type: String,
+      required: true
+    },
     user:{
        type: mongoose.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     movie:{
       type: mongoose.ObjectId,
-       ref: 'Movie'
+       ref: 'Movie',
+       required: true
    }
   });
 

@@ -8,7 +8,10 @@ const getAllReview = async (req, res) => {
 // add Review
 const addReview = async (req, res) => {
     // create document using req.body
-    const review = new Review(req.body);
+    const review = new Review({
+      ...req.body,
+      user: req.user._id
+    });
     // save document
     await review.save();
     res.send(review);
