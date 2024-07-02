@@ -2,8 +2,13 @@ const Movie = require("../models/movieModels");
 
 // get all movies
 const getAllMovies = async (req, res) => {
-  const movies = await Movie.find({});
-  res.json(movies);
+  try {
+    const movies = await Movie.find(req.query);
+    res.json(movies);
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
 // get movie by id
