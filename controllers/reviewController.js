@@ -3,7 +3,7 @@ const Review = require("../models/reviewModel");
 // get all review
 const getAllReview = async (req, res) => {
   try {
-    const reviews = await Review.find(req.query);
+    const reviews = await Review.find(req.query).populate('user');
     res.json(reviews);
   } catch (error) {
     res.status(500).send("Internal server error");
@@ -26,8 +26,3 @@ const addReview = async (req, res) => {
 };
 
 module.exports = { addReview, getAllReview };
-
-
-// 666e9c65d57ea4c2b19e7333
-// 665f49403af56756806dbe4b
-// 666e9c65d57ea4c2b19e7333

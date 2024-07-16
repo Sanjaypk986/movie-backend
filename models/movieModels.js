@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Genre = require("./genreModel");
 
 // create schema
 const movieSchema = new mongoose.Schema({
@@ -6,6 +7,10 @@ const movieSchema = new mongoose.Schema({
   language: String,
   description: String,
   thumbnail: String,
+  poster: String,
+  duration: String,
+  genre: String,
+  releaseDate:String
 });
 
 //   create model using schema

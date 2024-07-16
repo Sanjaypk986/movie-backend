@@ -9,22 +9,24 @@ const getUserById = async (req, res) => {
   res.send("hellow world");
 };
 const addUser = async (req, res) => {
-  // get data from req.body
-  const data = req.body
-  // store password 
-  const password = req.body.password
-  // encrypt the password
-  const hash = bcrypt.hashSync(password, saltRounds);
-  // create document using req.body and pass as object and change password from data
-  const user = new User({
-    ...data,
-    password: hash
-  });
-  // save document
-  await user.save();
-  // response
-  res.json(user);
+  try {
+    const data = req.body;
+    const password = data.password;
+    const email = await User.findOne({ email: data.email }).exec();
+    if (!email) {
+      const hash = bcrypt.hashSync(password, saltRounds);
+      const user = new User({ ...data, password: hash });
+      await user.save();
+      res.status(201).json(user);
+    } else {
+      res.status(409).send("Email already exists");
+    }
+  } catch (error) {
+    console.error("Error adding user:", error);
+    res.status(400).send("Bad Request");
+  }
 };
+ 
 const updateUser = async (req, res) => {
   res.send("hellow world");
 };
