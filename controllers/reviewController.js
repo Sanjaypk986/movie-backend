@@ -19,10 +19,29 @@ const addReview = async (req, res) => {
     });
     // save document
     await review.save();
+    // populate the user field
+    await review.populate({
+      path: 'user',
+      select: 'name'
+    });
+    console.log('Populated User:', review.user);
     res.send(review);
   } catch (error) {
     res.status(400).send("Please check data");
   }
 };
+const deleteReview = async (req, res) => {
+  try {
+    const deletedReview = await Review.findByIdAndDelete(req.params.reviewId);
 
-module.exports = { addReview, getAllReview };
+    if (!deletedReview) {
+      return res.status(404).send({ message: 'Review not found' });
+    }
+
+    res.status(200).send({ message: 'Review deleted successfully', review: deletedReview });
+  } catch (error) {
+    res.status(500).send({ message: 'Error deleting review', error: error.message });
+  }
+};
+
+module.exports = { addReview, getAllReview ,deleteReview};

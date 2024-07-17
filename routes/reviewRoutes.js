@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllReview, addReview } = require("../controllers/reviewController");
+const { getAllReview, addReview, deleteReview } = require("../controllers/reviewController");
 const protect = require("../middlewares/protect");
 const router = express.Router();
 
@@ -7,5 +7,6 @@ const router = express.Router();
 router.get("/", getAllReview);
 // add review
 router.post("/",protect, addReview);
+router.delete("/:reviewId",deleteReview);
 
 module.exports = router;
