@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // create schema
-const movieSchema = new mongoose.Schema({
+const upcomingSchema = new mongoose.Schema({
   title: String,
   language: [String],
   description: String,
@@ -9,10 +9,10 @@ const movieSchema = new mongoose.Schema({
   poster: String,
   duration: String,
   genre: [String],
-  releaseDate:String
+  releasingDate:String
 });
 
 //   create model using schema
-const Movie = mongoose.model("Movie", movieSchema);
+const Upcoming = mongoose.model("Upcoming", upcomingSchema);
 
-module.exports = Movie;
+module.exports = Upcoming;
